@@ -24,7 +24,5 @@
                 "TurgunboyevUz\\Mirpay\\MirpayServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
