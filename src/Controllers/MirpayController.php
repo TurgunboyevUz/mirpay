@@ -7,17 +7,15 @@ use Illuminate\Http\Response;
 use TurgunboyevUz\Mirpay\Enums\MirpayState;
 use TurgunboyevUz\Mirpay\Exceptions\MirpayException;
 use TurgunboyevUz\Mirpay\Models\MirpayTransaction;
+use TurgunboyevUz\Mirpay\Requests\ReceiveTransactionRequest;
 
 class MirpayController extends Controller
 {
-    public function success(Request $request)
+    public function success(ReceiveTransactionRequest $request)
     {
-        $request->validate([
-            'payid' => 'required|string|exists:mirpay_transactions,transaction_id',
-            'summa' => 'required|numeric',
-        ]);
+        $data = $request->validated();
 
-        $transaction = MirpayTransaction::where('transaction_id', $request->payid)->first();
+        $transaction = MirpayTransaction::where('transaction_id', $data['payid'])->first();
 
         if (! $transaction) {
             throw new MirpayException('Transaction not found', Response::HTTP_NOT_FOUND);
@@ -27,7 +25,7 @@ class MirpayController extends Controller
             throw new MirpayException('Transaction already has been accepted', Response::HTTP_CONFLICT);
         }
 
-        if ($request->summa != $transaction->amount) {
+        if ($data['summa'] != $transaction->amount) {
             throw new MirpayException('Transaction amounts do not match', Response::HTTP_CONFLICT);
         }
 
@@ -44,14 +42,11 @@ class MirpayController extends Controller
         ]);
     }
 
-    public function fail(Request $request)
+    public function fail(ReceiveTransactionRequest $request)
     {
-        $request->validate([
-            'payid' => 'required|string|exists:mirpay_transactions,transaction_id',
-            'summa' => 'required|numeric',
-        ]);
+        $data = $request->validated();
 
-        $transaction = MirpayTransaction::where('transaction_id', $request->payid)->first();
+        $transaction = MirpayTransaction::where('transaction_id', $data['payid'])->first();
 
         if (! $transaction) {
             throw new MirpayException('Transaction not found', Response::HTTP_NOT_FOUND);
@@ -61,7 +56,7 @@ class MirpayController extends Controller
             throw new MirpayException('Transaction already has been accepted', Response::HTTP_CONFLICT);
         }
 
-        if ($request->summa != $transaction->amount) {
+        if ($data['summa'] != $transaction->amount) {
             throw new MirpayException('Transaction amounts do not match', Response::HTTP_CONFLICT);
         }
 
