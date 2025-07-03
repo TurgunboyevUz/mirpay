@@ -180,7 +180,7 @@ $model->update(['paid' => true]);
 
 ## 📚 Muallif
 
-[Diyorbek Turg'unboyev](https://t.me/Turgunboyev_D)
+ - [Diyorbek Turg'unboyev](https://t.me/Turgunboyev_D)
 
 ## 📄 Litsenziya
 
