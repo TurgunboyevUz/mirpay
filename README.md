@@ -22,9 +22,9 @@ php artisan mirpay:install
 
 Bu quyidagilarni avtomatik bajaraydi:
 
-* `config/mirpay.php` faylini nashr qiladi
+* `routes/mirpay.php` faylini yaratadi
+* `config/mirpay.php` faylini yaratadi
 * `app/Payment/after_success.php` va `after_fail.php` fayllarni yaratadi
-* `.env` faylga kerakli kalitlarni qo‘shishni eslatadi
 
 ---
 
