@@ -26,6 +26,11 @@ Bu quyidagilarni avtomatik bajaraydi:
 * `config/mirpay.php` faylini yaratadi
 * `app/Payment/after_success.php` va `after_fail.php` fayllarni yaratadi
 
+### Mirpay Tranzaksiyalari uchun tableni yarating
+```bash
+php artisan migrate
+```
+
 ---
 
 ## ⚙️ Konfiguratsiya
