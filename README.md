@@ -74,8 +74,8 @@ use TurgunboyevUz\Mirpay\Controllers\MirpayController;
 
 // webhook usuli
 // quyidagi linklarni Mirpay Kassangizda ro'yxatdan o'tkazing
-// https://localhost/mirpay/success
-// https://localhost/mirpay/fail
+// https://localhost/api/mirpay/success
+// https://localhost/api/mirpay/fail
 
 Route::post('/mirpay/success', [MirpayController::class, 'success']);
 
