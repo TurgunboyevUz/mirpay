@@ -55,7 +55,7 @@ return [
 
 Agar `routes` konfiguratsiyasi `true` bo‘lsa, `routes/mirpay.php` fayli avtomatik yuklanadi.
 
-Siz bu faylga Mirpay callback yoki webhook yo‘nalishlarini joylashtirishingiz mumkin:
+Siz bu faylga Mirpay webhook routelarini joylashtirishingiz mumkin:
 
 ---
 
