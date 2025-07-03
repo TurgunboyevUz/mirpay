@@ -20,11 +20,7 @@ trait HasMirpayTransactions
 
         $this->mirpayTransactions()
             ->where('state', MirpayState::PENDING)
-            ->where('payable_type', get_class($this))
-            ->where('payable_id', $this->id)
-            ->update([
-                'state' => MirpayState::FAILED,
-            ]);
+            ->update(['state' => MirpayState::FAILED]);
 
         $mirpayTransaction = $this->mirpayTransactions()->create([
             'transaction_id' => $transaction['transaction_id'],

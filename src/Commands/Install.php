@@ -24,6 +24,10 @@ class Install extends Command
 
         $this->info(Artisan::output());
 
-        $this->info('Mirpay package installed');
+        $this->info('Mirpay paketi o\'rnatildi');
+
+        $this->info('Iltimos quyidagilarni .env fayliga qo\'shishni unutmang:');
+        $this->info('MIRPAY_SECRET_KEY');
+        $this->info('MIRPAY_MERCHANT_ID');
     }
 }
