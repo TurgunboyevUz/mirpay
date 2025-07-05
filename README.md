@@ -148,8 +148,12 @@ Ushbu fayllar `$model` nomli o‘zgaruvchiga ega bo‘lib, siz xohlagancha kod y
 
 ```php
 <?php
+/** @var TurgunboyevUz\Mirpay\Models\MirpayTransaction $transaction */
+
 // after_success.php
-// to'lovdan keyin model bilan bajariladigan ishlar
+// to'lov bajarilgandan keyin model bilan bajariladigan ishlar
+
+// Tranzaksiya ichidagi ma'lumotlar $transaction o'zgaruvchisida keladi
 
 $model->update(['paid' => true]);
 \Log::info("To‘lov muvaffaqiyatli: User #{$model->id}");
@@ -157,10 +161,56 @@ $model->update(['paid' => true]);
 
 ```php
 <?php
+/** @var TurgunboyevUz\Mirpay\Models\MirpayTransaction $transaction */
+
 // after_fail.php
 // to'lov bekor qilingandan keyin model bilan bajariladigan ishlar
 
+// Tranzaksiya ichidagi ma'lumotlar $transaction o'zgaruvchisida keladi
+
 \Log::warning("To‘lov bekor qilindi: User #{$model->id}");
+```
+
+## ⚙️ Model overriding (MirpayTransaction)
+Siz `mirpay_transactions` tableini o'zgartirishingiz mumkin (faqat default columnlarga tegmagan holatda):
+```php
+Schema::create('mirpay_transactions', function (Blueprint $table) {
+    $table->id();
+    $table->nullableMorphs('payable'); // tegilmaydi
+    $table->string('transaction_id'); // tegilmaydi
+    $table->bigInteger('amount'); // tegilmaydi
+    $table->integer('state'); // tegilmaydi
+
+    $table->foreignId('user')->constrained();
+    $table->timestamps();
+});
+```
+
+Shuningdek o'z logikangizni yaratish uchun MirpayTransaction modelini qayta yozishingiz mumkin:
+```php
+<?php
+// app/Models/Transaction.php
+namespace App\Models;
+
+use TurgunboyevUz\Mirpay\Models\MirpayTransaction;
+
+class Transaction extends MirpayTransaction
+{
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+}
+```
+
+Barcha o'zgarishlarni amalga oshirib bo'lgach `config/mirpay.php` faylida yangi modelni ko'rsatib o'ting:
+```php
+<?php
+
+return [
+    //...
+    'transaction_model' => App\Users\Transaction::class
+];
 ```
 
 ---
