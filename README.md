@@ -49,6 +49,8 @@ return [
     'merchant_id' => env('MIRPAY_MERCHANT_ID', ''),
     'secret_key'  => env('MIRPAY_SECRET_KEY', ''),
 
+    'transaction_model' => App\Users\Transaction::class,
+
     // Agar true bo‘lsa, paketdagi routes/mirpay.php fayli avtomatik ulanadi
     'routes' => true,
 ];
