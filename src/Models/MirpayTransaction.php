@@ -7,12 +7,7 @@ use TurgunboyevUz\Mirpay\Enums\MirpayState;
 class MirpayTransaction extends Model
 {
     protected $table    = 'mirpay_transactions';
-    
-    protected $fillable = [
-        'transaction_id',
-        'amount',
-        'state',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'state' => MirpayState::class,
