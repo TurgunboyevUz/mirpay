@@ -6,6 +6,8 @@ use TurgunboyevUz\Mirpay\Enums\MirpayState;
 
 class MirpayTransaction extends Model
 {
+    public ?string $redirect_url = null;
+
     protected $table    = 'mirpay_transactions';
     protected $guarded = [];
 

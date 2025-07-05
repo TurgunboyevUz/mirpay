@@ -11,11 +11,16 @@ use TurgunboyevUz\Mirpay\Requests\ReceiveTransactionRequest;
 
 class MirpayController extends Controller
 {
+    public function getModel()
+    {
+        return config('mirpay.transaction_model', MirpayTransaction::class);
+    }
+
     public function success(ReceiveTransactionRequest $request)
     {
         $data = $request->validated();
 
-        $transaction = MirpayTransaction::where('transaction_id', $data['payid'])->first();
+        $transaction = $this->getModel()::where('transaction_id', $data['payid'])->first();
 
         if (! $transaction) {
             throw new MirpayException('Transaction not found', Response::HTTP_NOT_FOUND);
@@ -46,7 +51,7 @@ class MirpayController extends Controller
     {
         $data = $request->validated();
 
-        $transaction = MirpayTransaction::where('transaction_id', $data['payid'])->first();
+        $transaction = $this->getModel()::where('transaction_id', $data['payid'])->first();
 
         if (! $transaction) {
             throw new MirpayException('Transaction not found', Response::HTTP_NOT_FOUND);

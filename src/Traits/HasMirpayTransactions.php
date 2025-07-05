@@ -10,7 +10,7 @@ trait HasMirpayTransactions
 {
     public function mirpayTransactions()
     {
-        return $this->morphMany(config('mirpay.transaction_model'), 'payable');
+        return $this->morphMany(config('mirpay.transaction_model', MirpayTransaction::class), 'payable');
     }
 
     public function createMirpayTransaction(int $amount, string $comment = '')
